@@ -2,11 +2,14 @@ package com.jain.schl.sclmngmnt.model;
 
 
 import java.sql.Date;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Generated;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,13 +24,13 @@ public class StudentInfo {
 	@Id
 	private String stdid;
 	@JsonProperty
-	@Column(name="std_fst_nme")
+	@Column(name="fst_nme")
 	private String stdFstName;
 	@JsonProperty
-	@Column(name="std_lst_nme")
+	@Column(name="lst_nme")
 	private String stdLstName;
 	@JsonProperty
-	@Column(name="std_mid_nme")
+	@Column(name="mid_nme")
 	private String stdMidName;
 	
 	@Column(name="std_dob")
