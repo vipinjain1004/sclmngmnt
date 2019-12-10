@@ -2,14 +2,12 @@ package com.jain.schl.sclmngmnt.model;
 
 
 import java.sql.Date;
-import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Generated;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,12 +20,14 @@ public class StudentInfo {
 	
 	@Column(name="std_id")
 	@Id
-	private String stdid;
-	@JsonProperty
+	private String stdId;
+	@JsonProperty(required = true)
+	@NotBlank(message = "First Name is mandatory")
 	@Column(name="fst_nme")
 	private String stdFstName;
 	@JsonProperty
 	@Column(name="lst_nme")
+	@NotBlank(message = "Last Name is mandatory")
 	private String stdLstName;
 	@JsonProperty
 	@Column(name="mid_nme")
@@ -35,12 +35,14 @@ public class StudentInfo {
 	
 	@Column(name="std_dob")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	
 	private Date stdDob;
 	
 	@Column(name="std_doj")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	private Date stdDoJ;
 	@Column(name="std_gen")
+	@NotBlank(message = "Gendor is mandatory")
 	private String stdGen;
 	
 	public Date getStdDoJ() {
@@ -56,10 +58,10 @@ public class StudentInfo {
 		this.stdGen = stdGen;
 	}
 	public String getStdid() {
-		return stdid;
+		return stdId;
 	}
-	public void setStdid(String stdid) {
-		this.stdid = stdid;
+	public void setStdid(String stdId) {
+		this.stdId = stdId;
 	}
 	public String getStdFstName() {
 		return stdFstName;
@@ -88,7 +90,7 @@ public class StudentInfo {
 	}
 	@Override
 	public String toString() {
-		return "StudentInfo [stdid=" + stdid + ", stdFstName=" + stdFstName + ", stdLstName=" + stdLstName
+		return "StudentInfo [stdid=" + stdId + ", stdFstName=" + stdFstName + ", stdLstName=" + stdLstName
 				+ ", stdMidName=" + stdMidName + ", stdDob=" + stdDob + ", stdDoJ=" + stdDoJ + ", stdGen=" + stdGen
 				+ "]";
 	}
