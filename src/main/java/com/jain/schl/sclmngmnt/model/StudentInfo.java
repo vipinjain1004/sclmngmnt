@@ -5,26 +5,24 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @Entity
 @Table(name ="TO_SCLSIN")
 @JsonPropertyOrder({"stdFstName","stdLstName","stdMidName","stDob" })
+@JsonIgnoreProperties(value = { "stdDoJ" })
 public class StudentInfo {
 	
 	@Column(name="std_id")
 	@Id
-	@GenericGenerator(name = "std_id", strategy = "com.jain.schl.sclmngmnt.utils.StdKeyGenerator")
-    @GeneratedValue(generator = "std_id")  	
 	private String stdId;
 	@JsonProperty(required = true)
 	@NotBlank(message = "First Name is mandatory")
@@ -37,14 +35,12 @@ public class StudentInfo {
 	@JsonProperty
 	@Column(name="mid_nme")
 	private String stdMidName;
-	
 	@Column(name="std_dob")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-	
 	private Date stdDob;
-	
 	@Column(name="std_doj")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	@JsonIgnore
 	private Date stdDoJ;
 	@Column(name="std_gen")
 	@NotBlank(message = "Gender is mandatory")
