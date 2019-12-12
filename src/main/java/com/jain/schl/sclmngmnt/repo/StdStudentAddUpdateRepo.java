@@ -7,16 +7,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.jain.schl.sclmngmnt.model.StudentInfo;
+import com.jain.schl.sclmngmnt.model.StdBasicInfo;
 
 
 @Repository
-public interface StdStudentAddUpdateRepo extends JpaRepository<StudentInfo, Long> {
+public interface StdStudentAddUpdateRepo extends JpaRepository<StdBasicInfo, Long> {
 
-	@Query(value = "SELECT t FROM StudentInfo t WHERE t.stdId = ?1", nativeQuery=false)
-	public Optional<StudentInfo> getStudentById(String stdId);
+	@Query(value = "SELECT t FROM StdBasicInfo t WHERE t.stdId = ?1", nativeQuery=false)
+	public Optional<StdBasicInfo> getStudentById(String stdId);
 	
-	public List<StudentInfo> findByStdFstName(String name);
+	public List<StdBasicInfo> findByStdFstName(String name);
 	
 }
 

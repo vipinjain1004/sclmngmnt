@@ -16,30 +16,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jain.schl.sclmngmnt.model.StudentInfo;
+import com.jain.schl.sclmngmnt.model.StdBasicInfo;
+import com.jain.schl.sclmngmnt.serviceImp.StdDetailsInfoServiceImp;
 import com.jain.schl.sclmngmnt.serviceImp.StdStudentAddUpdateServiceImp;
 
 @RestController
-public class StdAddController {
-	private static Logger LOGGER = LoggerFactory.getLogger(StdAddController.class);
+public class StdBasicInfoController {
+	private static Logger LOGGER = LoggerFactory.getLogger(StdBasicInfoController.class);
 	@Autowired
 	private StdStudentAddUpdateServiceImp stdStudentAddUpdateServiceImp;
+	
 	@Transactional
-	@PostMapping(value="/student/add", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE )
-	public StudentInfo addStudent(@Valid @RequestBody StudentInfo studentInfo) throws Exception{
-		stdStudentAddUpdateServiceImp.addStudent(studentInfo);
+	@PostMapping(value="/student/add")
+	public StdBasicInfo addStudent(@Valid @RequestBody StdBasicInfo studentInfo) throws Exception{
+		studentInfo = stdStudentAddUpdateServiceImp.addStudent(studentInfo);
 		LOGGER.info(studentInfo.toString());
 		return studentInfo;		
 	}
 	@GetMapping(value="/student/{stdId}")
-	public StudentInfo getStudentById(@PathVariable(value = "stdId") String stdId){
+	public StdBasicInfo getStudentById(@PathVariable(value = "stdId") String stdId){
 		LOGGER.info(stdId);
 		LOGGER.info(stdStudentAddUpdateServiceImp.getStudentById(stdId).get().toString());
 		return stdStudentAddUpdateServiceImp.getStudentById(stdId).get();
 	}
 	
 	@GetMapping(value="/student")
-	public List<StudentInfo> getStudentByName(@RequestParam("name") String name){
+	public List<StdBasicInfo> getStudentByName(@RequestParam("name") String name){
 		return stdStudentAddUpdateServiceImp.getStudentByName(name);
 		
 	}

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Table(name ="TO_SCLSIN")
 @JsonPropertyOrder({"stdFstName","stdLstName","stdMidName","stDob" })
 @JsonIgnoreProperties(value = { "stdDoJ" })
-public class StudentInfo {
+public class StdBasicInfo {
 	
 	@Column(name="std_id")
 	@Id

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jain.schl.sclmngmnt.model.StdDetailsInfo;
-import com.jain.schl.sclmngmnt.model.StudentInfo;
+import com.jain.schl.sclmngmnt.model.StdBasicInfo;
 import com.jain.schl.sclmngmnt.service.StdDetailsInfoService;
 import com.jain.schl.sclmngmnt.serviceImp.StdDetailsInfoServiceImp;
 @RestController

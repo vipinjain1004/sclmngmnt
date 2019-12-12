@@ -43,7 +43,7 @@ public class StdDetailsInfo {
 	private int pinCde;
 	
 	@OneToOne
-	private StudentInfo studentInfo;
+	private StdBasicInfo studentInfo;
 
 	public StdDetailsInfo(){
 		
@@ -163,11 +163,11 @@ public class StdDetailsInfo {
 		this.pinCde = pinCde;
 	}
 
-	public StudentInfo getStudentInfo() {
+	public StdBasicInfo getStudentInfo() {
 		return studentInfo;
 	}
 
-	public void setStudentInfo(StudentInfo studentInfo) {
+	public void setStudentInfo(StdBasicInfo studentInfo) {
 		this.studentInfo = studentInfo;
 	}
 

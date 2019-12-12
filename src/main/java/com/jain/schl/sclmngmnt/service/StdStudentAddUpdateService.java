@@ -3,12 +3,12 @@ package com.jain.schl.sclmngmnt.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.jain.schl.sclmngmnt.model.StudentInfo;
+import com.jain.schl.sclmngmnt.model.StdBasicInfo;
 
 public interface StdStudentAddUpdateService {
 
-	public StudentInfo addStudent(StudentInfo studentInfo);
-	public StudentInfo updateStudent(StudentInfo studentInfo);
-	public Optional<StudentInfo> getStudentById(String stdId);
-	public List<StudentInfo> getStudentByName(String name);
+	public StdBasicInfo addStudent(StdBasicInfo studentInfo);
+	public StdBasicInfo updateStudent(StdBasicInfo studentInfo);
+	public Optional<StdBasicInfo> getStudentById(String stdId);
+	public List<StdBasicInfo> getStudentByName(String name);
 }
