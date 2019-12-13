@@ -3,9 +3,12 @@ package com.jain.schl.sclmngmnt.model;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -17,35 +20,59 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @Entity
 @Table(name ="TO_SCLSIN")
-@JsonPropertyOrder({"stdFstName","stdLstName","stdMidName","stDob" })
+@JsonPropertyOrder({"stdId","stdFstName","stdMidName","stdLstName","stDob" })
 @JsonIgnoreProperties(value = { "stdDoJ" })
 public class StdBasicInfo {
 	
 	@Column(name="std_id")
 	@Id
 	private String stdId;
+	
 	@JsonProperty(required = true)
-	@NotBlank(message = "First Name is mandatory")
+	@NotBlank(message = "First Name is mandatory field")
 	@Column(name="fst_nme")
 	private String stdFstName;
-	@JsonProperty
+	
+	@JsonProperty(required = true)
 	@Column(name="lst_nme")
-	@NotBlank(message = "Last Name is mandatory")
+	@NotBlank(message = "Last Name is mandatory field")
 	private String stdLstName;
-	@JsonProperty
+	
+	
 	@Column(name="mid_nme")
 	private String stdMidName;
+	
+	@JsonProperty(required = true)
 	@Column(name="std_dob")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MMM-yyyy")
 	private Date stdDob;
+	
 	@Column(name="std_doj")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MMM-yyyy")
 	@JsonIgnore
 	private Date stdDoJ;
+	
+	@JsonProperty(required = true)
 	@Column(name="std_gen")
-	@NotBlank(message = "Gender is mandatory")
+	@NotBlank(message = "Gender is mandatory field")
 	private String stdGen;
 	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="stdBasicInfo")
+	private StdDetailsInfo stdDetailsInfo;
+
+	
+	public StdDetailsInfo getStdDetailsInfo() {
+		return stdDetailsInfo;
+	}
+	public void setStdDetailsInfo(StdDetailsInfo stdDetailsInfo) {
+		this.stdDetailsInfo = stdDetailsInfo;
+	}
+	public String getStdId() {
+		return stdId;
+	}
+	public void setStdId(String stdId) {
+		this.stdId = stdId;
+	}	
 	public Date getStdDoJ() {
 		return stdDoJ;
 	}
@@ -57,12 +84,6 @@ public class StdBasicInfo {
 	}
 	public void setStdGen(String stdGen) {
 		this.stdGen = stdGen;
-	}
-	public String getStdid() {
-		return stdId;
-	}
-	public void setStdid(String stdId) {
-		this.stdId = stdId;
 	}
 	public String getStdFstName() {
 		return stdFstName;
@@ -89,15 +110,14 @@ public class StdBasicInfo {
 	public void setStdDob(Date stdDob) {
 		this.stdDob = stdDob;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "StudentInfo [stdid=" + stdId + ", stdFstName=" + stdFstName + ", stdLstName=" + stdLstName
+		return "StdBasicInfo [stdId=" + stdId + ", stdFstName=" + stdFstName + ", stdLstName=" + stdLstName
 				+ ", stdMidName=" + stdMidName + ", stdDob=" + stdDob + ", stdDoJ=" + stdDoJ + ", stdGen=" + stdGen
-				+ "]";
+				+ ", stdDetailsInfo=" + stdDetailsInfo + "]";
 	}
-
 	
-	
-	
-
 }

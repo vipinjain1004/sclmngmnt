@@ -19,5 +19,7 @@ public class StdDetailsInfoServiceImp implements StdDetailsInfoService {
 	public StdDetailsInfo findByStdId(String stdId){
 		return stdDetailsInfoRepo.findByStdId(stdId);
 	}
-
+	public StdDetailsInfo updateStudentDetails(StdDetailsInfo stdDetailsInfo){
+		return stdDetailsInfoRepo.save(stdDetailsInfo);
+	}
 }

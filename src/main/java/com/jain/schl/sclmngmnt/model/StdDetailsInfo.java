@@ -2,49 +2,70 @@ package com.jain.schl.sclmngmnt.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="to_SCLSDI")
-
 public class StdDetailsInfo {
 	@Id
 	@Column(name="std_id")
+	@NotBlank(message = "Student id is mandatory")
 	private String stdId;
+	
 	@Column(name="fth_fst_nme")
 	private String fthFstNme;
+	
 	@Column(name="fth_lst_nme")
 	private String fthLstNme;
+	
 	@Column(name="fth_mid_nme")
 	private String fthMidNme;	
+	
 	@Column(name="mth_fst_nme")
 	private String mthFstNme;
+	
 	@Column(name="mth_lst_nme")
 	private String mthLstNme;
+	
 	@Column(name="mth_mid_nme")
 	private String mthMidNme;
+	
 	@Column(name="mbl_num")
 	private int mblNum;
+	
 	@Column(name="eml_id")
+	@Email(message="Enter Valid Email id")
 	private String emlId;
+	
 	@Column(name="std_add")
 	private String stdAdd;
+	
 	@Column(name="city")
 	private String city;
+
 	@Column(name="distt")
 	private String distt;
+	
 	@Column(name="state")
 	private String state;
+	
 	@Column(name="pin_cde") 
 	private int pinCde;
 	
-	@OneToOne
-	private StdBasicInfo studentInfo;
-
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "std_id", nullable = false)
+	@JsonIgnore
+    private StdBasicInfo stdBasicInfo;
+	
+	
 	public StdDetailsInfo(){
 		
 	}
@@ -163,20 +184,24 @@ public class StdDetailsInfo {
 		this.pinCde = pinCde;
 	}
 
-	public StdBasicInfo getStudentInfo() {
-		return studentInfo;
+	/**
+	 * @return the stdBasicInfo
+	 */
+	public StdBasicInfo getStdBasicInfo() {
+		return stdBasicInfo;
 	}
-
-	public void setStudentInfo(StdBasicInfo studentInfo) {
-		this.studentInfo = studentInfo;
+	/**
+	 * @param stdBasicInfo the stdBasicInfo to set
+	 */
+	public void setStdBasicInfo(StdBasicInfo stdBasicInfo) {
+		this.stdBasicInfo = stdBasicInfo;
 	}
-
 	@Override
 	public String toString() {
 		return "StdDetailsInfo [stdId=" + stdId + ", fthFstNme=" + fthFstNme + ", fthLstNme=" + fthLstNme
 				+ ", fthMidNme=" + fthMidNme + ", mthFstNme=" + mthFstNme + ", mthLstNme=" + mthLstNme + ", mthMidNme="
 				+ mthMidNme + ", mblNum=" + mblNum + ", emlId=" + emlId + ", stdAdd=" + stdAdd + ", city=" + city
-				+ ", distt=" + distt + ", state=" + state + ", pinCde=" + pinCde + ", studentInfo=" + studentInfo + "]";
+				+ ", distt=" + distt + ", state=" + state + ", pinCde=" + pinCde + "]";
 	}
 	
 	

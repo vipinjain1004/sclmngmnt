@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,14 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jain.schl.sclmngmnt.model.StdBasicInfo;
-import com.jain.schl.sclmngmnt.serviceImp.StdDetailsInfoServiceImp;
-import com.jain.schl.sclmngmnt.serviceImp.StdStudentAddUpdateServiceImp;
+import com.jain.schl.sclmngmnt.serviceImp.StdBasicInfoServiceImp;
 
 @RestController
 public class StdBasicInfoController {
 	private static Logger LOGGER = LoggerFactory.getLogger(StdBasicInfoController.class);
 	@Autowired
-	private StdStudentAddUpdateServiceImp stdStudentAddUpdateServiceImp;
+	private StdBasicInfoServiceImp stdStudentAddUpdateServiceImp;
 	
 	@Transactional
 	@PostMapping(value="/student/add")

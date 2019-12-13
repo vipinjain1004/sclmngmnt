@@ -5,8 +5,7 @@ import java.util.Optional;
 
 import com.jain.schl.sclmngmnt.model.StdBasicInfo;
 
-public interface StdStudentAddUpdateService {
-
+public interface StdBasicInfoService {
 	public StdBasicInfo addStudent(StdBasicInfo studentInfo);
 	public StdBasicInfo updateStudent(StdBasicInfo studentInfo);
 	public Optional<StdBasicInfo> getStudentById(String stdId);

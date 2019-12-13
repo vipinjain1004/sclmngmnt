@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class StdGenericExceptionHandle extends ResponseEntityExceptionHandler {
-	@ExceptionHandler({ Exception.class })
+	@ExceptionHandler({ NullPointerException.class })
 	public ResponseEntity<Object> handleAccessDeniedException(Exception ex, WebRequest request) {
 		Map<String, Object> body = new LinkedHashMap<>();
 		body.put("timestamp", new Date());
