@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,6 +19,7 @@ public class StdDetailsInfo {
 	@Id
 	@Column(name="std_id")
 	@NotBlank(message = "Student id is mandatory")
+	@Size(max=10,min=10, message ="Student should be 10 character")
 	private String stdId;
 	
 	@Column(name="fth_fst_nme")

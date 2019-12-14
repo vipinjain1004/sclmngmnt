@@ -7,9 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jain.schl.sclmngmnt.exception.StudentNotFoundException;
+import com.jain.schl.sclmngmnt.model.StdBasicInfo;
 import com.jain.schl.sclmngmnt.model.StdDetailsInfo;
 import com.jain.schl.sclmngmnt.model.StdSeqNum;
-import com.jain.schl.sclmngmnt.model.StdBasicInfo;
 import com.jain.schl.sclmngmnt.repo.StdSeqNumRepo;
 import com.jain.schl.sclmngmnt.repo.StdStudentAddUpdateRepo;
 import com.jain.schl.sclmngmnt.service.StdBasicInfoService;
@@ -21,8 +22,6 @@ public class StdBasicInfoServiceImp implements StdBasicInfoService {
 	private StdStudentAddUpdateRepo stdStudentAddUpdateRepo;
 	@Autowired
 	private StdSeqNumRepo seqNumRepo;
-	@Autowired
-	private StdDetailsInfoServiceImp stdDetailsInfoServiceImp;
 
 	public StdBasicInfo addStudent(StdBasicInfo studentInfo) {
 		StdSeqNum stdSeqNum = new StdSeqNum(new java.sql.Date(new Date().getTime()));
@@ -40,15 +39,28 @@ public class StdBasicInfoServiceImp implements StdBasicInfoService {
 	}
 
 	public StdBasicInfo updateStudent(StdBasicInfo studentInfo) {
+		studentInfo = stdStudentAddUpdateRepo.save(studentInfo);	
 		return studentInfo;
 	}
 
-	public Optional<StdBasicInfo> getStudentById(String stdId) {
-		return stdStudentAddUpdateRepo.getStudentById(stdId);
+	public Optional<StdBasicInfo> getStudentById(String stdId) throws StudentNotFoundException {
+		Optional<StdBasicInfo> stdBasicInfo =  stdStudentAddUpdateRepo.getStudentById(stdId);
+		if(!stdBasicInfo.isPresent())
+			throw new StudentNotFoundException("Student Not Found for "+stdId);
+		return stdBasicInfo;
 	}
 
-	public List<StdBasicInfo> getStudentByName(String name) {
-		return stdStudentAddUpdateRepo.findByStdFstName(name);
+	public List<StdBasicInfo> getStudentByName(String name) throws StudentNotFoundException  {
+		List<StdBasicInfo> list = stdStudentAddUpdateRepo.findByStdFstName(name);
+		if(list.isEmpty())
+			throw new StudentNotFoundException("Student Not Found for "+name);
+		return list;
+	}
+	public List<StdBasicInfo> findByStdFstNameAndLstName(String name,String LstName) throws StudentNotFoundException {
+		List<StdBasicInfo> list = stdStudentAddUpdateRepo.findByStdFstNameAndStdLstName(name, LstName);
+		if(list.isEmpty())
+			throw new StudentNotFoundException("Student Not Found for "+name);
+		return list;
 	}
 	
 }

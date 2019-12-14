@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,8 +25,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonIgnoreProperties(value = { "stdDoJ" })
 public class StdBasicInfo {
 	
+	
 	@Column(name="std_id")
 	@Id
+	@Size(max=10,min=10, message ="Student should be 10 character")
 	private String stdId;
 	
 	@JsonProperty(required = true)

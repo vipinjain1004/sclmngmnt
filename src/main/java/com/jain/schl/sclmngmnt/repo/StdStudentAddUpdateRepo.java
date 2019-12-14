@@ -18,6 +18,8 @@ public interface StdStudentAddUpdateRepo extends JpaRepository<StdBasicInfo, Lon
 	
 	public List<StdBasicInfo> findByStdFstName(String name);
 	
+	public List<StdBasicInfo> findByStdFstNameAndStdLstName(String name,String LstName);
+	
 }
 
 //value="select e from Employee e where empName = ?1 limit 1", nativeQuery=true

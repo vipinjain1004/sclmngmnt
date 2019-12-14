@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 @ControllerAdvice
 public class StdGenericExceptionHandle extends ResponseEntityExceptionHandler {
 	@ExceptionHandler({ NullPointerException.class })
@@ -22,5 +24,12 @@ public class StdGenericExceptionHandle extends ResponseEntityExceptionHandler {
 		body.put("errors", "Server is down !!! Try after some time !!!");
 		return new ResponseEntity<Object>(body, new HttpHeaders(), HttpStatus.FORBIDDEN);
 	}
-
+	@ExceptionHandler({ MySQLIntegrityConstraintViolationException.class })
+	public ResponseEntity<Object> handleDuplicateException(Exception ex, WebRequest request) {
+		Map<String, Object> body = new LinkedHashMap<>();
+		body.put("timestamp", new Date());
+		// Get all errors
+		body.put("errors", "Server is down !!! Try after some time !!!");
+		return new ResponseEntity<Object>(body, new HttpHeaders(), HttpStatus.FORBIDDEN);
+	}
 }
