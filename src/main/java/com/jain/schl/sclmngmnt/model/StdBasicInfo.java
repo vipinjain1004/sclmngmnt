@@ -2,12 +2,15 @@ package com.jain.schl.sclmngmnt.model;
 
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -62,8 +65,23 @@ public class StdBasicInfo {
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="stdBasicInfo")
 	private StdDetailsInfo stdDetailsInfo;
-
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="stdBasicInfo")
+	private Set<StdClassDetails> stdClassDetails = new HashSet<>();
+	
+	
+	/**
+	 * @return the stdClassDetails
+	 */
+	public Set<StdClassDetails> getStdClassDetails() {
+		return stdClassDetails;
+	}
+	/**
+	 * @param stdClassDetails the stdClassDetails to set
+	 */
+	public void setStdClassDetails(Set<StdClassDetails> stdClassDetails) {
+		this.stdClassDetails = stdClassDetails;
+	}
 	public StdDetailsInfo getStdDetailsInfo() {
 		return stdDetailsInfo;
 	}
@@ -120,7 +138,8 @@ public class StdBasicInfo {
 	public String toString() {
 		return "StdBasicInfo [stdId=" + stdId + ", stdFstName=" + stdFstName + ", stdLstName=" + stdLstName
 				+ ", stdMidName=" + stdMidName + ", stdDob=" + stdDob + ", stdDoJ=" + stdDoJ + ", stdGen=" + stdGen
-				+ ", stdDetailsInfo=" + stdDetailsInfo + "]";
+				+ ", stdDetailsInfo=" + stdDetailsInfo + ", stdClassDetails=" + stdClassDetails + "]";
 	}
+
 	
 }

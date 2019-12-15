@@ -6,8 +6,6 @@ import java.util.Map;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +33,7 @@ public class StdBasicInfoController {
 	@PostMapping(value="/add")
 	public StdBasicInfo addStudent(@Valid @RequestBody StdBasicInfo studentInfo) throws Exception{
 		studentInfo = stdStudentAddUpdateServiceImp.addStudent(studentInfo);
-		LOGGER.info(studentInfo.toString());
+		LOGGER.info("Controller Call " +studentInfo.toString());
 		return studentInfo;		
 	}
 	@GetMapping(value="/{stdId}")
@@ -45,7 +43,7 @@ public class StdBasicInfoController {
 		return stdStudentAddUpdateServiceImp.getStudentById(stdId).get();
 	}
 	
-	@GetMapping(value="")
+	@GetMapping(value="/searchByName")
 	public List<StdBasicInfo> getStudentByName(@RequestParam("name") String name) throws StudentNotFoundException{
 		return stdStudentAddUpdateServiceImp.getStudentByName(name);
 		
@@ -54,6 +52,12 @@ public class StdBasicInfoController {
 	@GetMapping(value="/searchByNameAndLstName")
 	public List<StdBasicInfo> getStudentByNameAndLName(@RequestParam Map<String,String> requestParams) throws StudentNotFoundException{
 		return stdStudentAddUpdateServiceImp.findByStdFstNameAndLstName(requestParams.get("name"),requestParams.get("lastName"));
+		
+	}
+	
+	@GetMapping(value="")
+	public List<StdBasicInfo> getAllStudent() throws StudentNotFoundException{
+		return stdStudentAddUpdateServiceImp.findAll();
 		
 	}
 	

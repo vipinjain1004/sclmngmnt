@@ -11,6 +11,8 @@ public interface StdBasicInfoService {
 	public StdBasicInfo updateStudent(StdBasicInfo studentInfo);
 	public Optional<StdBasicInfo> getStudentById(String stdId) throws StudentNotFoundException ;
 	public List<StdBasicInfo> getStudentByName(String name) throws StudentNotFoundException ;
-	public List<StdBasicInfo> findByStdFstNameAndLstName(String name,String LstName) throws StudentNotFoundException ;
+	public List<StdBasicInfo> findByStdFstNameAndLstName(String name,String LstName) throws StudentNotFoundException;
+	public List<StdBasicInfo> findAll() throws StudentNotFoundException;
+
 	
 }
