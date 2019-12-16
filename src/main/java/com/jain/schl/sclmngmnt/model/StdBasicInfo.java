@@ -69,7 +69,22 @@ public class StdBasicInfo {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="stdBasicInfo")
 	private Set<StdClassDetails> stdClassDetails = new HashSet<>();
 	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="stdBasicInfo")
+	private StdPrvSclDetails stdPrvSclDetails;
 	
+	
+	/**
+	 * @return the stdPrvSclDetails
+	 */
+	public StdPrvSclDetails getStdPrvSclDetails() {
+		return stdPrvSclDetails;
+	}
+	/**
+	 * @param stdPrvSclDetails the stdPrvSclDetails to set
+	 */
+	public void setStdPrvSclDetails(StdPrvSclDetails stdPrvSclDetails) {
+		this.stdPrvSclDetails = stdPrvSclDetails;
+	}
 	/**
 	 * @return the stdClassDetails
 	 */

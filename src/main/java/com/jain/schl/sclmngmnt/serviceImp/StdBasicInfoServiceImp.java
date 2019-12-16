@@ -13,6 +13,7 @@ import com.jain.schl.sclmngmnt.exception.StudentNotFoundException;
 import com.jain.schl.sclmngmnt.model.StdBasicInfo;
 import com.jain.schl.sclmngmnt.model.StdClassDetails;
 import com.jain.schl.sclmngmnt.model.StdDetailsInfo;
+import com.jain.schl.sclmngmnt.model.StdPrvSclDetails;
 import com.jain.schl.sclmngmnt.model.StdSeqNum;
 import com.jain.schl.sclmngmnt.repo.StdSeqNumRepo;
 import com.jain.schl.sclmngmnt.repo.StdStudentAddUpdateRepo;
@@ -26,22 +27,22 @@ public class StdBasicInfoServiceImp implements StdBasicInfoService {
 	@Autowired
 	private StdSeqNumRepo seqNumRepo;
 
-	public StdBasicInfo addStudent(StdBasicInfo studentInfo) {
+	public StdBasicInfo addStudent(StdBasicInfo studentBasicInfo) {
 		StdSeqNum stdSeqNum = new StdSeqNum(new java.sql.Date(new Date().getTime()));
 		stdSeqNum = seqNumRepo.save(stdSeqNum);
-		studentInfo.setStdId(
+		studentBasicInfo.setStdId(
 				StdConstants.STD_ID_PRFIX + String.format(StdConstants.STD_ID_FORMATE, stdSeqNum.getEntSeqNum()));		
-		StdDetailsInfo stdDetailsInfo = new StdDetailsInfo(studentInfo.getStdId());
-		studentInfo.setStdDetailsInfo(stdDetailsInfo);
-		StdClassDetails stdClassDetails = new  StdClassDetails(studentInfo.getStdId());
-		//stdClassDetails.setSessionYear("SY19-20");
-		//stdClassDetails.setStdClassName(6);
+		StdDetailsInfo stdDetailsInfo = new StdDetailsInfo(studentBasicInfo.getStdId());
+		studentBasicInfo.setStdDetailsInfo(stdDetailsInfo);
+		StdClassDetails stdClassDetails = new  StdClassDetails(studentBasicInfo.getStdId());
+		StdPrvSclDetails stdPrvSclDetails = new StdPrvSclDetails(studentBasicInfo.getStdId());
+		studentBasicInfo.setStdPrvSclDetails(stdPrvSclDetails);
 		stdClassDetails.setStartDate(new Date());
 		Set<StdClassDetails> set = new HashSet<>();
 		set.add(stdClassDetails);
-		studentInfo.setStdClassDetails(set);
-		studentInfo = stdStudentAddUpdateRepo.save(studentInfo);		
-		return studentInfo;
+		studentBasicInfo.setStdClassDetails(set);
+		studentBasicInfo = stdStudentAddUpdateRepo.save(studentBasicInfo);		
+		return studentBasicInfo;
 	}
 
 	public StdBasicInfo updateStudent(StdBasicInfo studentInfo) {
