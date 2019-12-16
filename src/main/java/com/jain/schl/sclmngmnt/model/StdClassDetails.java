@@ -17,7 +17,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "TO_SCLSCL")
-public class StdClassDetails {
+public class StdClassDetails extends StdAuditModel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "std_id")
 	@Id
@@ -140,15 +145,16 @@ public class StdClassDetails {
 		this.endDate = endDate;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "StdClassDetails [stdId=" + stdId + ", StdClassName=" + StdClassName + ", sessionYear=" + sessionYear
-				+ ", startDate=" + startDate + ", endDate=" + endDate + "]";
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", stdBasicInfo=" + stdBasicInfo
+				+ ", getCreatedAt()=" + getCreatedAt() + ", getUpdatedAt()=" + getUpdatedAt() + "]";
 	}
+
+
 
 }
