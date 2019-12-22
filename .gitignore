@@ -13,6 +13,8 @@ build/
 .settings
 .springBeans
 .sts4-cache
+gradle/
+
 
 ### IntelliJ IDEA ###
 .idea
@@ -30,3 +32,15 @@ out/
 
 ### VS Code ###
 .vscode/
+
+.classpath
+.project
+.settings/
+target/
+*/target/**
+##### Gradle file
+
+bin/
+gradlew
+gradlew.bat
+settings.gradle

@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Table(name ="TO_SCLSIN")
 @JsonPropertyOrder({"stdId","stdFstName","stdMidName","stdLstName","stDob" })
 @JsonIgnoreProperties(value = { "stdDoJ" })
+@XmlRootElement
 public class StdBasicInfo {
 	
 	

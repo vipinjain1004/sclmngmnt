@@ -13,12 +13,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mysql.jdbc.Blob;
 
 @Entity
 @Table(name="to_sclpsl")
+@XmlRootElement
 public class StdPrvSclDetails extends StdAuditModel {
 
 	public StdPrvSclDetails(){

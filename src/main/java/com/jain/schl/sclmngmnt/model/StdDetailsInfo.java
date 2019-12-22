@@ -10,11 +10,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="to_SCLSDI")
+@XmlRootElement
 public class StdDetailsInfo {
 	@Id
 	@Column(name="std_id")
