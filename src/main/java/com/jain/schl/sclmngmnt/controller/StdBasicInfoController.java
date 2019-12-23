@@ -32,8 +32,8 @@ public class StdBasicInfoController {
 	@Transactional
 	@PostMapping(value="/add")
 	public StdBasicInfo addStudent(@Valid @RequestBody StdBasicInfo studentInfo) throws Exception{
-		studentInfo = stdStudentAddUpdateServiceImp.addStudent(studentInfo);
 		LOGGER.info("Controller Call " +studentInfo.toString());
+		studentInfo = stdStudentAddUpdateServiceImp.addStudent(studentInfo);
 		return studentInfo;		
 	}
 	@GetMapping(value="/{stdId}")

@@ -6,15 +6,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jain.schl.sclmngmnt.exception.StudentNotFoundException;
 import com.jain.schl.sclmngmnt.model.StdBasicInfo;
 import com.jain.schl.sclmngmnt.model.StdClassDetails;
+import com.jain.schl.sclmngmnt.model.StdConfModel;
 import com.jain.schl.sclmngmnt.model.StdDetailsInfo;
 import com.jain.schl.sclmngmnt.model.StdPrvSclDetails;
 import com.jain.schl.sclmngmnt.model.StdSeqNum;
+import com.jain.schl.sclmngmnt.proxy.StdApiGatewayProxy;
 import com.jain.schl.sclmngmnt.repo.StdSeqNumRepo;
 import com.jain.schl.sclmngmnt.repo.StdStudentAddUpdateRepo;
 import com.jain.schl.sclmngmnt.service.StdBasicInfoService;
@@ -22,10 +26,14 @@ import com.jain.schl.sclmngmnt.utils.StdConstants;
 
 @Service
 public class StdBasicInfoServiceImp implements StdBasicInfoService {
+	private static Logger LOGGER = LoggerFactory.getLogger(StdBasicInfoServiceImp.class);
 	@Autowired
 	private StdStudentAddUpdateRepo stdStudentAddUpdateRepo;
 	@Autowired
 	private StdSeqNumRepo seqNumRepo;
+	
+	@Autowired
+	private StdApiGatewayProxy apiGatewayProxy;
 
 	public StdBasicInfo addStudent(StdBasicInfo studentBasicInfo) {
 		StdSeqNum stdSeqNum = new StdSeqNum(new java.sql.Date(new Date().getTime()));
@@ -34,10 +42,17 @@ public class StdBasicInfoServiceImp implements StdBasicInfoService {
 				StdConstants.STD_ID_PRFIX + String.format(StdConstants.STD_ID_FORMATE, stdSeqNum.getEntSeqNum()));		
 		StdDetailsInfo stdDetailsInfo = new StdDetailsInfo(studentBasicInfo.getStdId());
 		studentBasicInfo.setStdDetailsInfo(stdDetailsInfo);
+
+		StdConfModel stdConfModel = apiGatewayProxy.getStudentByName("SCHOOL_SESSION_YEAR");
+		LOGGER.info("Configuration : {}", stdConfModel);
+		
 		StdClassDetails stdClassDetails = new  StdClassDetails(studentBasicInfo.getStdId());
-		StdPrvSclDetails stdPrvSclDetails = new StdPrvSclDetails(studentBasicInfo.getStdId());
-		studentBasicInfo.setStdPrvSclDetails(stdPrvSclDetails);
+		stdClassDetails.setSessionYear(stdConfModel.getAttVal());
 		stdClassDetails.setStartDate(new Date());
+		
+		StdPrvSclDetails stdPrvSclDetails = new StdPrvSclDetails(studentBasicInfo.getStdId());
+
+		studentBasicInfo.setStdPrvSclDetails(stdPrvSclDetails);
 		Set<StdClassDetails> set = new HashSet<>();
 		set.add(stdClassDetails);
 		studentBasicInfo.setStdClassDetails(set);
