@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="to_SCLSDI")
 @XmlRootElement
 public class StdDetailsInfo {
+	
 	@Id
 	@Column(name="std_id")
 	@NotBlank(message = "Student id is mandatory")

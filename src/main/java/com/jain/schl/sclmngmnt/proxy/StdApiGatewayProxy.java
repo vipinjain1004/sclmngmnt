@@ -10,11 +10,13 @@ import com.jain.schl.sclmngmnt.model.StdConfModel;
 
 @Component
 @FeignClient(name="school-netflix-zuul-service")
-@RibbonClient(name="school-student-service")
+@RibbonClient(name="school-configuration-service")
 public interface StdApiGatewayProxy {
-	@GetMapping(value="/school-student-service/searchById/{id}")
-	public StdConfModel getStudentById(@PathVariable(value = "id", required= true) Long id);
 	
-	@GetMapping(value="/school-student-service/searchByKey/{key}")
-	public StdConfModel getStudentByName(@PathVariable("key") String key);
+	@GetMapping(value="/school-configuration-service/searchById/{id}")
+	public StdConfModel getConfById(@PathVariable(value = "id", required= true) Long id);
+	
+	@GetMapping(value="/school-configuration-service/searchByKey/{key}")
+	public StdConfModel getConfByKey(@PathVariable(value = "key") String key);
+	
 }

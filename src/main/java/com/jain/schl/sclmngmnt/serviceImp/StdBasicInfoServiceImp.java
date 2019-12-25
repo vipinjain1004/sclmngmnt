@@ -23,6 +23,7 @@ import com.jain.schl.sclmngmnt.repo.StdSeqNumRepo;
 import com.jain.schl.sclmngmnt.repo.StdStudentAddUpdateRepo;
 import com.jain.schl.sclmngmnt.service.StdBasicInfoService;
 import com.jain.schl.sclmngmnt.utils.StdConstants;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @Service
 public class StdBasicInfoServiceImp implements StdBasicInfoService {
@@ -35,7 +36,10 @@ public class StdBasicInfoServiceImp implements StdBasicInfoService {
 	@Autowired
 	private StdApiGatewayProxy apiGatewayProxy;
 
+	@HystrixCommand(fallbackMethod="serviceNotFound")
 	public StdBasicInfo addStudent(StdBasicInfo studentBasicInfo) {
+		StdConfModel stdConfModel = apiGatewayProxy.getConfByKey("SCHOOL_SESSION_YEAR");
+		LOGGER.info("Configuration : {}", stdConfModel);
 		StdSeqNum stdSeqNum = new StdSeqNum(new java.sql.Date(new Date().getTime()));
 		stdSeqNum = seqNumRepo.save(stdSeqNum);
 		studentBasicInfo.setStdId(
@@ -43,8 +47,6 @@ public class StdBasicInfoServiceImp implements StdBasicInfoService {
 		StdDetailsInfo stdDetailsInfo = new StdDetailsInfo(studentBasicInfo.getStdId());
 		studentBasicInfo.setStdDetailsInfo(stdDetailsInfo);
 
-		StdConfModel stdConfModel = apiGatewayProxy.getStudentByName("SCHOOL_SESSION_YEAR");
-		LOGGER.info("Configuration : {}", stdConfModel);
 		
 		StdClassDetails stdClassDetails = new  StdClassDetails(studentBasicInfo.getStdId());
 		stdClassDetails.setSessionYear(stdConfModel.getAttVal());
@@ -90,5 +92,11 @@ public class StdBasicInfoServiceImp implements StdBasicInfoService {
 		if(list.isEmpty())
 			throw new StudentNotFoundException("Student not found");
 		return list;
+	}
+	
+	public StdBasicInfo serviceNotFound(StdBasicInfo studentBasicInfo){
+		LOGGER.info("Configrution service not on or Getting some error");
+		return studentBasicInfo;
+		
 	}
 }

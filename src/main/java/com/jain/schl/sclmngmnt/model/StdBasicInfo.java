@@ -65,12 +65,15 @@ public class StdBasicInfo {
 	@NotBlank(message = "Gender is mandatory field")
 	private String stdGen;
 	
+	@JsonProperty(required = false)
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="stdBasicInfo")
 	private StdDetailsInfo stdDetailsInfo;
 	
+	@JsonProperty(required = false)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="stdBasicInfo")
 	private Set<StdClassDetails> stdClassDetails = new HashSet<>();
 	
+	@JsonProperty(required = false)
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="stdBasicInfo")
 	private StdPrvSclDetails stdPrvSclDetails;
 	
